@@ -25,10 +25,11 @@ SELECT
     r.rating,
     r.comment
 FROM Property p
-LEFT JOIN Review r ON p.property_id = r.property_id;
+LEFT OUTER JOIN Review r ON p.property_id = r.property_id
+ORDER BY p.property_id;
 
--- 3. FULL OUTER JOIN: Retrieve all users and all bookings, including users without bookings and bookings not linked to users
--- MySQL Version (emulated using LEFT JOIN and RIGHT JOIN with UNION)
+-- 3. FULL OUTER JOIN: Retrieve all users and all bookings, including users without bookings
+-- MySQL emulation using LEFT JOIN only, as Booking.user_id is NOT NULL
 SELECT 
     u.user_id,
     u.first_name,
@@ -39,31 +40,4 @@ SELECT
     b.total_price,
     b.status
 FROM User u
-LEFT JOIN Booking b ON u.user_id = b.user_id
-UNION
-SELECT 
-    u.user_id,
-    u.first_name,
-    u.last_name,
-    u.email,
-    b.booking_id,
-    b.start_date,
-    b.total_price,
-    b.status
-FROM User u
-RIGHT JOIN Booking b ON u.user_id = b.user_id
-WHERE u.user_id IS NULL;
-
--- 3. Alternative (PostgreSQL): Native FULL OUTER JOIN
-
-SELECT 
-    u.user_id,
-    u.first_name,
-    u.last_name,
-    u.email,
-    b.booking_id,
-    b.start_date,
-    b.total_price,
-    b.status
-FROM User u
-FULL OUTER JOIN Booking b ON u.user_id = b.user_id;
+LEFT JOIN Booking b ON u.user_id = b.user_id;
