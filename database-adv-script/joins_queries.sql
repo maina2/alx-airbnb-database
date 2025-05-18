@@ -1,4 +1,5 @@
-
+-- joins_queries.sql
+-- SQL queries demonstrating INNER JOIN, LEFT JOIN, and FULL OUTER JOIN for Airbnb-like database
 
 -- 1. INNER JOIN: Retrieve all bookings and the respective users who made them
 SELECT 
@@ -27,6 +28,7 @@ FROM Property p
 LEFT JOIN Review r ON p.property_id = r.property_id;
 
 -- 3. FULL OUTER JOIN: Retrieve all users and all bookings, including users without bookings and bookings not linked to users
+-- MySQL Version (emulated using LEFT JOIN and RIGHT JOIN with UNION)
 SELECT 
     u.user_id,
     u.first_name,
@@ -51,3 +53,19 @@ SELECT
 FROM User u
 RIGHT JOIN Booking b ON u.user_id = b.user_id
 WHERE u.user_id IS NULL;
+
+-- 3. Alternative (PostgreSQL): Native FULL OUTER JOIN
+-- Uncomment this if using PostgreSQL
+/*
+SELECT 
+    u.user_id,
+    u.first_name,
+    u.last_name,
+    u.email,
+    b.booking_id,
+    b.start_date,
+    b.total_price,
+    b.status
+FROM User u
+FULL OUTER JOIN Booking b ON u.user_id = b.user_id;
+*/
