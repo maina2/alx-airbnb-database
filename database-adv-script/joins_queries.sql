@@ -55,8 +55,7 @@ RIGHT JOIN Booking b ON u.user_id = b.user_id
 WHERE u.user_id IS NULL;
 
 -- 3. Alternative (PostgreSQL): Native FULL OUTER JOIN
--- Uncomment this if using PostgreSQL
-/*
+
 SELECT 
     u.user_id,
     u.first_name,
@@ -68,4 +67,3 @@ SELECT
     b.status
 FROM User u
 FULL OUTER JOIN Booking b ON u.user_id = b.user_id;
-*/
